@@ -1,6 +1,7 @@
 import React from "react";
 import "../../../App.css";
 import logo from "./iiitdm-logo.png";
+import { Link } from "react-router-dom";
 
 export const Landing = () => {
   return (
@@ -51,9 +52,12 @@ export const Landing = () => {
             Welcome to iiitdm's <br />
             web-based attendance management system
           </h1>
-          <a className="btn btn-outline-light btn-lg get_started" to="/login">
+          <Link
+            className="btn btn-outline-light btn-lg get_started"
+            to="/login"
+          >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -101,7 +105,7 @@ export const Landing = () => {
         <footer>
           <div className="row justify-content-center">
             <div className="col-md-5 text-center">
-              <img src={logo} /> <br />
+              <img src={logo} alt="logo" /> <br />
               <br />
               <strong>Contact info</strong>
               <br />

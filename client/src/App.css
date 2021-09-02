@@ -101,6 +101,7 @@ body {
 }
 
 .get_started:hover {
+  color: white;
   background-color: rgba(0, 0, 0, 0.75);
 }
 
@@ -330,4 +331,32 @@ section {
 
 section:hover {
   flex: 2;
+}
+
+.student {
+  background: url("Student.jpg");
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.student:hover {
+  background: url("Student.jpg") #85929e;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.faculty {
+  background: url("Professor.jpg");
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+.faculty:hover {
+  background: url("Professor.jpg") #85929e;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: multiply;
 }

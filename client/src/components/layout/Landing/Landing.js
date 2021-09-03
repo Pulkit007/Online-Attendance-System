@@ -8,9 +8,9 @@ export const Landing = () => {
     <div data-spy="scroll" data-target="#navbarResponsive">
       <div id="home">
         <nav className="navbar navbar-expand-md navbar-dark bg-transparent fixed-top">
-          <a className="navbar-brand" href="index.html">
+          <Link className="navbar-brand" to="/">
             <img src={logo} alt="logo" style={{ color: "white" }} />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"

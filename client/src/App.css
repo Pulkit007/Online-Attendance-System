@@ -360,3 +360,8 @@ section:hover {
   background-size: cover;
   background-blend-mode: multiply;
 }
+
+.bln:hover {
+  color: #1ebba3;
+  font-weight: bold;
+}

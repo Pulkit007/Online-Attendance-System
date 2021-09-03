@@ -13,21 +13,27 @@ const StudentLogin = () => {
 
   const { name, email, password, roll, dept, year } = formData;
 
-  const signUpButton = document.getElementById("signUp");
-  const signInButton = document.getElementById("signIn");
-  const container = document.getElementById("container");
+  const switchClass = () => {
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("container");
 
-  if (signUpButton) {
-    signUpButton.addEventListener("click", () => {
-      container.classList.add("right-panel-active");
-    });
-  }
+    console.log("clicked");
+    console.log(signUpButton);
 
-  if (signInButton) {
-    signInButton.addEventListener("click", () => {
-      container.classList.remove("right-panel-active");
-    });
-  }
+    if (signUpButton) {
+      console.log(container);
+      signUpButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+    }
+
+    if (signInButton) {
+      signInButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+      });
+    }
+  };
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -113,14 +119,14 @@ const StudentLogin = () => {
             <div className="overlay-panel overlay-left">
               <h1>Already have an account!</h1>
               <p>Please login to access your profile</p>
-              <button className="ghost" id="signIn">
+              <button onClick={switchClass} className="ghost" id="signIn">
                 Sign In
               </button>
             </div>
             <div className="overlay-panel overlay-right">
               <h1>Don't have an account?</h1>
               <p>Go ahead and create an account for yourself!!</p>
-              <button className="ghost" id="signUp">
+              <button onClick={switchClass} className="ghost" id="signUp">
                 Sign Up
               </button>
             </div>

@@ -11,21 +11,23 @@ const FacultyLogin = () => {
 
   const { name, email, password, dept } = formData;
 
-  const signUpButton = document.getElementById("signUp");
-  const signInButton = document.getElementById("signIn");
-  const container = document.getElementById("container");
+  const switchClass = () => {
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("container");
 
-  if (signUpButton) {
-    signUpButton.addEventListener("click", () => {
-      container.classList.add("right-panel-active");
-    });
-  }
+    if (!container.classList.contains("right-panel-active")) {
+      signUpButton.addEventListener("click", () => {
+        container.classList.add("right-panel-active");
+      });
+    }
 
-  if (signInButton) {
-    signInButton.addEventListener("click", () => {
-      container.classList.remove("right-panel-active");
-    });
-  }
+    if (container.classList.contains("right-panel-active")) {
+      signInButton.addEventListener("click", () => {
+        container.classList.remove("right-panel-active");
+      });
+    }
+  };
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -86,7 +88,6 @@ const FacultyLogin = () => {
               name="password"
               onChange={(e) => onChange(e)}
             />
-            {/* <a href="#">Forgot your password?</a> */}
             <button>Sign In</button>
           </form>
         </div>
@@ -102,7 +103,7 @@ const FacultyLogin = () => {
             <div className="overlay-panel overlay-right">
               <h1>Don't have an account?</h1>
               <p>Go ahead and create an account for yourself!!</p>
-              <button className="ghost" id="signUp">
+              <button onClick={switchClass} className="ghost" id="signUp">
                 Sign Up
               </button>
             </div>

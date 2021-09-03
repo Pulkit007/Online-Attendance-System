@@ -11,22 +11,23 @@ const FacultyLogin = () => {
 
   const { name, email, password, dept } = formData;
 
-  const switchClass = () => {
-    const signUpButton = document.getElementById("signUp");
-    const signInButton = document.getElementById("signIn");
-    const container = document.getElementById("container");
+  let signUpButton = document.getElementById("signUp");
+  let signInButton = document.getElementById("signIn");
+  let container = document.getElementById("container");
 
-    if (!container.classList.contains("right-panel-active")) {
-      signUpButton.addEventListener("click", () => {
-        container.classList.add("right-panel-active");
-      });
-    }
+  useEffect(() => {
+    signUpButton = document.getElementById("signUp");
+    signInButton = document.getElementById("signIn");
+    container = document.getElementById("container");
+    console.log("useeffect");
+  }, []);
 
-    if (container.classList.contains("right-panel-active")) {
-      signInButton.addEventListener("click", () => {
-        container.classList.remove("right-panel-active");
-      });
-    }
+  const addClass = () => {
+    container.classList.add("right-panel-active");
+  };
+
+  const removeClass = () => {
+    container.classList.remove("right-panel-active");
   };
 
   const onChange = (e) =>
@@ -46,6 +47,7 @@ const FacultyLogin = () => {
               value={name}
               name="name"
               onChange={(e) => onChange(e)}
+              autoComplete="off"
             />
             <input
               type="email"
@@ -53,6 +55,7 @@ const FacultyLogin = () => {
               value={email}
               name="email"
               onChange={(e) => onChange(e)}
+              autoComplete="off"
             />
             <input
               type="password"
@@ -60,6 +63,7 @@ const FacultyLogin = () => {
               value={password}
               name="password"
               onChange={(e) => onChange(e)}
+              autoComplete="off"
             />
             <input
               type="text"
@@ -67,6 +71,7 @@ const FacultyLogin = () => {
               value={dept}
               name="dept"
               onChange={(e) => onChange(e)}
+              autoComplete="off"
             />
             <button type="submit">Sign Up</button>
           </form>
@@ -80,6 +85,7 @@ const FacultyLogin = () => {
               value={email}
               name="email"
               onChange={(e) => onChange(e)}
+              autoComplete="off"
             />
             <input
               type="password"
@@ -87,6 +93,7 @@ const FacultyLogin = () => {
               value={password}
               name="password"
               onChange={(e) => onChange(e)}
+              autoComplete="off"
             />
             <button>Sign In</button>
           </form>
@@ -96,14 +103,14 @@ const FacultyLogin = () => {
             <div className="overlay-panel overlay-left">
               <h1>Already have an account!</h1>
               <p>Please login to access your profile</p>
-              <button className="ghost" id="signIn">
+              <button onClick={removeClass} className="ghost" id="signIn">
                 Sign In
               </button>
             </div>
             <div className="overlay-panel overlay-right">
               <h1>Don't have an account?</h1>
               <p>Go ahead and create an account for yourself!!</p>
-              <button onClick={switchClass} className="ghost" id="signUp">
+              <button onClick={addClass} className="ghost" id="signUp">
                 Sign Up
               </button>
             </div>

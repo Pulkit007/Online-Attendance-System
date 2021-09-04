@@ -14,8 +14,8 @@ export const Landing = () => {
           <button
             className="navbar-toggler"
             type="button"
-            data-toggle="collapse"
-            data-target="#navbarResponsive"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive"
           >
             <span className="navbar-toggler-icon"></span>
           </button>

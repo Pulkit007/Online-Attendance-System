@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,8 +19,10 @@
   },
   "homepage": "https://github.com/Pulkit007/Online-Attendance-System#readme",
   "dependencies": {
+    "config": "^3.3.6",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.5"
+    "mongoose": "^6.0.5",
+    "nodemon": "^2.0.12"
   }
 }

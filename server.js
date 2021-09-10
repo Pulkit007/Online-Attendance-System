@@ -1,8 +1,10 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const path = require("path");
+const passport = require("passport");
 
 const app = express();
+const faculty = require("./routes/faculty");
 
 connectDB();
 
@@ -11,6 +13,8 @@ app.use(express.json({ extended: false }));
 app.get("/", (req, res) => {
   res.send("Working");
 });
+
+app.use("/api/faculty", faculty);
 
 //Serve static assets in production
 

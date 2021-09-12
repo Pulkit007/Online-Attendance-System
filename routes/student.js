@@ -9,6 +9,7 @@ const keys = {
 
 const Student = require("../models/Student");
 const auth = require("../middleware/auth");
+const Course = require("../models/Course");
 
 // @route    POST api/student/register
 // @desc     Register a student
@@ -167,6 +168,56 @@ router.get("/current", auth, async (req, res) => {
     }
 
     res.json(profile);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/students/courses
+// @desc    Get courses of that batch
+// @access  Private
+router.get("/courses", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Course.find({
+      year: profile.year,
+      dept: profile.dept,
+    })
+      .then((courses) => res.json(courses))
+      .catch((err) =>
+        res.status(404).json({ nopostfound: "No post found with that ID" })
+      );
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/student/courses/:course
+// @desc    Get course by year and course name
+// @access  Private
+router.get("/courses/:course", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Course.find({
+      year: profile.year,
+      course: req.params.course,
+    })
+      .then((courses) => res.json(courses))
+      .catch((err) =>
+        res.status(404).json({ nopostfound: "No post found with that ID" })
+      );
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");

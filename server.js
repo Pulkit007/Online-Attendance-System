@@ -5,6 +5,7 @@ const passport = require("passport");
 
 const app = express();
 const faculty = require("./routes/faculty");
+const student = require("./routes/student");
 
 connectDB();
 
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/faculty", faculty);
+app.use("/api/student", student);
 
 //Serve static assets in production
 

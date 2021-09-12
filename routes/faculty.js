@@ -10,7 +10,9 @@ const keys = {
 
 const Faculty = require("../models/Faculty");
 const Course = require("../models/Course");
+const Student = require("../models/Student");
 const auth = require("../middleware/auth");
+const Attendance = require("../models/Attendance");
 
 // @route    POST api/faculty/register
 // @desc     Register a faculty
@@ -247,6 +249,97 @@ router.get("/courses/:year/:course", auth, (req, res) => {
         nopostfound: "No post found with that ID",
       });
     });
+});
+
+// @route   GET api/faculty/students
+// @desc    Get students of a year
+// @access  Private
+router.get("/students/:year", auth, (req, res) => {
+  Student.find({
+    year: req.params.year,
+    dept: req.user.dept,
+  })
+    .then((students) => res.json(students))
+    .catch((err) =>
+      res.status(404).json({
+        nopostfound: "No post found with that ID",
+      })
+    );
+});
+
+// @route POST api/faculty/attendance/:year/:roll
+// @desc Mark attendance
+// @access Private
+router.post("/attendance/:year/:roll/:course", auth, (req, res) => {
+  Student.findOne({
+    roll: req.params.roll,
+  })
+    .then((student) => {
+      const { date, status } = req.body;
+
+      Course.findOne({
+        faculty: req.user.name,
+        year: req.params.year,
+        dept: req.user.dept,
+        course: req.params.course,
+      }).then((course) => {
+        Attendance.create({
+          roll: req.params.roll,
+          course: req.params.course,
+          year: req.params.year,
+          name: student.name,
+          date: date,
+          status: status,
+        })
+          .then((record) => res.json(record))
+          .catch((err) => console.log(err.message));
+      });
+    })
+    .catch((err) =>
+      res.status(404).json({
+        nopostfound: "No post found with that ID",
+      })
+    );
+});
+
+// @route   GET api/faculty/attendance/:year/:roll
+// @desc    Get attendance of a student
+// @access  Private
+router.get("/attendance/:year/:roll/:course", auth, (req, res) => {
+  Attendance.find({
+    roll: req.params.roll,
+    year: req.params.year,
+    course: req.params.course,
+  })
+    .then((records) => res.json(records))
+    .catch((err) => console.log(err.message));
+});
+
+// @route   Update api/faculty/attendance/:year/:roll
+// @desc    update attendance of a student
+// @access  Private
+router.put("/attendance/:year/:roll/:course/:date", auth, (req, res) => {
+  const { status } = req.body;
+
+  Course.findOne({
+    faculty: req.user.name,
+    year: req.params.year,
+    dept: req.user.dept,
+    course: req.params.course,
+  }).then((course) => {
+    Attendance.findOne({
+      roll: req.params.roll,
+      year: req.params.year,
+      course: course.course,
+      date: req.params.date,
+    })
+      .then((record) => {
+        record.status = status;
+        record.save();
+        res.json(record);
+      })
+      .catch((err) => console.log(err.message));
+  });
 });
 
 module.exports = router;

@@ -9,6 +9,8 @@ const keys = {
 
 const Student = require("../models/Student");
 const auth = require("../middleware/auth");
+const Course = require("../models/Course");
+const Attendance = require("../models/Attendance");
 
 // @route    POST api/student/register
 // @desc     Register a student
@@ -167,6 +169,151 @@ router.get("/current", auth, async (req, res) => {
     }
 
     res.json(profile);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/students/courses
+// @desc    Get courses of that batch
+// @access  Private
+router.get("/courses", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Course.find({
+      year: profile.year,
+      dept: profile.dept,
+    })
+      .then((courses) => res.json(courses))
+      .catch((err) =>
+        res.status(404).json({ nopostfound: "No post found with that ID" })
+      );
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/student/courses/:course
+// @desc    Get course by year and course name
+// @access  Private
+router.get("/courses/:course", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Course.find({
+      year: profile.year,
+      course: req.params.course,
+    })
+      .then((courses) => res.json(courses))
+      .catch((err) =>
+        res.status(404).json({ nopostfound: "No post found with that ID" })
+      );
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/student/attendance/:course
+// @desc    Get attendance of a student in a particular course
+// @access  Private
+router.get("/attendance/:course", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Attendance.find({
+      roll: profile.roll,
+      year: profile.year,
+      course: req.params.course,
+    })
+      .then((records) => {
+        res.json(records);
+      })
+      .catch((err) => console.log(err.message));
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/student/attendance
+// @desc    Get percentage of total attendance of a student
+// @access  Private
+router.get("/attendance", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Attendance.find({
+      roll: profile.roll,
+      year: profile.year,
+    })
+      .then((records) => {
+        let total = records.length;
+        let present = 0;
+        records.map((record) => {
+          if (record.status === "Present") present++;
+        });
+        let avg = (present / total) * 100;
+        res.json({
+          present: present,
+          avg: avg,
+        });
+      })
+      .catch((err) => console.log(err.message));
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route   GET api/student/percent/:course
+// @desc    Get attendance percent of a student in particular course
+// @access  Private
+router.get("/percent/:course", auth, async (req, res) => {
+  try {
+    const profile = await Student.findOne({ email: req.user.email });
+
+    if (!profile) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
+
+    Attendance.find({
+      roll: profile.roll,
+      year: profile.year,
+      course: req.params.course,
+    })
+      .then((records) => {
+        let total = records.length;
+        let present = 0;
+        records.map((record) => {
+          if (record.status === "Present") present++;
+        });
+        res.send({
+          Present: present,
+          Absent: total - present,
+          Percent: (present / total) * 100,
+        });
+      })
+      .catch((err) => console.log(err.message));
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error");

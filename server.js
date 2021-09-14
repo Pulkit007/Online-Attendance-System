@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./config/db");
 const path = require("path");
 const passport = require("passport");
+const cors = require("cors");
 
 const app = express();
 const faculty = require("./routes/faculty");
@@ -10,6 +11,7 @@ const student = require("./routes/student");
 connectDB();
 
 app.use(express.json({ extended: false }));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("Working");

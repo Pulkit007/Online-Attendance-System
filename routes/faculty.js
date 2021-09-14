@@ -72,7 +72,7 @@ router.post(
         (err, token) => {
           if (err) throw err;
 
-          res.json({ success: true, token: "Bearer" + token });
+          res.json({ success: true, token: token });
         }
       );
     } catch (err) {
@@ -132,7 +132,7 @@ router.post(
           }
           res.json({
             success: true,
-            token: "Bearer " + token,
+            token: token,
           });
         }
       );

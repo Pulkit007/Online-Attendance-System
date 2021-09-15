@@ -14,13 +14,12 @@ import {
 const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
-  loading: true,
+  loading: localStorage.getItem("token") ? false : true,
   user: null,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
-
   switch (type) {
     case STUDENT_LOADED:
       return {
@@ -83,3 +82,4 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+

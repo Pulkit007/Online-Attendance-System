@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../../actions/faculty";
+import { useHistory } from "react-router-dom";
 
 const CreateCourse = ({ auth: { user }, addPost }) => {
   const [formData, setFormData] = useState({
@@ -11,14 +12,17 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
   });
 
   const { course, year } = formData;
+  const history = useHistory();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form-Data");
     console.log(formData);
     addPost({ course, year });
+    history.push("/faculty/courses");
   };
 
   return (

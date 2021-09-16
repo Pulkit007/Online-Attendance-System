@@ -13,15 +13,20 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: null,
+  isAuthenticated: localStorage.getItem("token") ? "faculty" : null,
   loading: localStorage.getItem("token") ? false : true,
-  user: null,
+  user: localStorage.getItem("user"),
 };
+
+console.log("token", localStorage.getItem("token"));
+console.log("user", localStorage.getItem("user"));
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
+  console.log("paylaod", payload);
   switch (type) {
     case STUDENT_LOADED:
+      localStorage.setItem("user", payload);
       return {
         ...state,
         isAuthenticated: "student",
@@ -29,6 +34,8 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case FACULTY_LOADED:
+      console.log(payload);
+      localStorage.setItem("user", payload);
       return {
         ...state,
         isAuthenticated: "faculty",
@@ -36,6 +43,7 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case PARENT_LOADED:
+      localStorage.setItem("user", payload);
       return {
         ...state,
         isAuthenticated: "parent",
@@ -61,6 +69,7 @@ export default function (state = initialState, action) {
 
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         token: null,
@@ -72,6 +81,7 @@ export default function (state = initialState, action) {
     case AUTH_ERROR:
     case LOGIN_FAIL:
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         token: null,
@@ -82,4 +92,3 @@ export default function (state = initialState, action) {
       return state;
   }
 }
-

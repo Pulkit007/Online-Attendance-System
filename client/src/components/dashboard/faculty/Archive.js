@@ -7,6 +7,7 @@ import { getCourses } from "../../../actions/faculty";
 import { logout } from "../../../actions/auth";
 import Card from "./Card";
 import Sidebar from "./Sidebar";
+import { loadFaculty } from "../../../actions/auth";
 import "./style.css";
 
 const Archive = ({
@@ -14,9 +15,11 @@ const Archive = ({
   logout,
   faculty: { loading, courses },
   auth: { user },
+  loadFaculty,
 }) => {
   useEffect(() => {
     getCourses();
+    loadFaculty();
   }, [getCourses]);
 
   let archived = courses.filter((course) => {
@@ -74,6 +77,7 @@ Archive.propTypes = {
   faculty: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  loadFaculty: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -81,4 +85,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCourses })(Archive);
+export default connect(mapStateToProps, { getCourses, loadFaculty })(Archive);

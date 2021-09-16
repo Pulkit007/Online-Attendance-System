@@ -7,14 +7,17 @@ import Sidebar from "./Sidebar";
 import { getCourses } from "../../../actions/faculty";
 import "./style.css";
 import Card from "./Card";
+import { loadFaculty } from "../../../actions/auth";
 
 const FacultyHome = ({
   getCourses,
   faculty: { loading, courses },
+  loadFaculty,
   auth: { user },
 }) => {
   useEffect(() => {
     getCourses();
+    loadFaculty();
   }, [getCourses]);
 
   let ongoing = courses.filter((course) => {
@@ -71,6 +74,7 @@ FacultyHome.propTypes = {
   getCourses: PropTypes.func.isRequired,
   faculty: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  loadFaculty: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -78,4 +82,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCourses })(FacultyHome);
+export default connect(mapStateToProps, { getCourses, loadFaculty })(
+  FacultyHome
+);

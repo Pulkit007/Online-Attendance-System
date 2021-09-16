@@ -174,6 +174,7 @@ export const loginFaculty = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
+    console.log("Redirected to login");
     const res = await axios.post(`/api/faculty/login`, body, config);
 
     console.log("inside login");

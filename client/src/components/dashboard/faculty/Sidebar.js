@@ -8,6 +8,7 @@ export const Sidebar = ({
   auth: { isAuthenticated, loading, user },
   logout,
 }) => {
+  console.log(user);
   return (
     <aside className="sidenav">
       <div className="sidenav__close-icon">
@@ -54,6 +55,7 @@ export const Sidebar = ({
       </ul>
     </aside>
   );
+  
 };
 
 Sidebar.propTypes = {

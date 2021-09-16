@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../../actions/faculty";
 import { useHistory } from "react-router-dom";
+import Spinner from "../../layout/Spinner";
+import { loadFaculty } from "../../../actions/auth";
 
-const CreateCourse = ({ auth: { user }, addPost }) => {
+const CreateCourse = ({
+  auth: { user },
+  addPost,
+  faculty: { loading, courses },
+  loadFaculty,
+}) => {
+  useEffect(() => {
+    loadFaculty();
+  }, []);
+
   const [formData, setFormData] = useState({
     course: "",
     year: "",
@@ -25,9 +36,11 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
     history.push("/faculty/courses");
   };
 
-  return (
+  return !user ? (
+    <Spinner />
+  ) : (
     <div>
-      <div class="modal-dialog"></div>
+      <div className="modal-dialog"></div>
       <div className="modal-body">
         <form
           onSubmit={(e) => {
@@ -48,6 +61,7 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
           <label for="assgn-text">
             <h1>Batch Year</h1>
           </label>
+          v
           <input
             type="text"
             name="year"
@@ -70,10 +84,14 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
 
 CreateCourse.propTypes = {
   addPost: PropTypes.func.isRequired,
+  faculty: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  loadFaculty: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  faculty: state.faculty,
 });
 
-export default connect(mapStateToProps, { addPost })(CreateCourse);
+export default connect(mapStateToProps, { addPost, loadFaculty })(CreateCourse);

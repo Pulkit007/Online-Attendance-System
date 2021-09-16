@@ -13,8 +13,6 @@ import {
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
-const BASE_URL = "http://localhost:5000";
-
 // Load User
 export const loadStudent = () => async (dispatch) => {
   if (localStorage.token) {
@@ -42,12 +40,12 @@ export const loadFaculty = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
-  console.log("reached");
+
   try {
     const res = await axios.get(`/api/faculty/current`);
 
-    console.log("inside load");
-    console.log(res.data);
+    // console.log("inside load");
+    // console.log(res.data);
 
     dispatch({
       type: FACULTY_LOADED,
@@ -184,9 +182,8 @@ export const loginFaculty = (email, password) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    console.log("init faculty");
+
     dispatch(loadFaculty());
-    console.log("complete faculty");
   } catch (err) {
     console.log(err.response);
     const errors = err.response.data.errors;

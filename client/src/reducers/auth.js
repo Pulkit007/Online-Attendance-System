@@ -5,24 +5,23 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  ACCOUNT_DELETED,
   STUDENT_LOADED,
   FACULTY_LOADED,
-  PARENT_LOADED,
 } from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: null,
-  loading: true,
-  user: null,
+  isAuthenticated: localStorage.getItem("token") ? true : null,
+  loading: localStorage.getItem("token") ? false : true,
+  user: localStorage.getItem("user"),
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
-
+  console.log(type);
   switch (type) {
     case STUDENT_LOADED:
+      localStorage.setItem("user", payload);
       return {
         ...state,
         isAuthenticated: "student",
@@ -30,16 +29,10 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case FACULTY_LOADED:
+      localStorage.setItem("user", payload);
       return {
         ...state,
         isAuthenticated: "faculty",
-        loading: false,
-        user: payload,
-      };
-    case PARENT_LOADED:
-      return {
-        ...state,
-        isAuthenticated: "parent",
         loading: false,
         user: payload,
       };
@@ -62,17 +55,19 @@ export default function (state = initialState, action) {
 
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false,
-        user: null,
+        loading: localStorage.getItem("token") ? false : true,
+        user: localStorage.getItem("user"),
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       return {
         ...state,
         token: null,

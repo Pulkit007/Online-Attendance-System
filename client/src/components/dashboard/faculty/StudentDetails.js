@@ -1,8 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
-import Spinner from "../../layout/Spinner";
 import { getStudentAttendance } from "../../../actions/faculty";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import DetailsRow from "./DetailsRow";
 import Sidebar from "./Sidebar";
@@ -54,11 +52,11 @@ const StudentDetails = ({
         <Sidebar user={user} />
 
         <div>
-          <h1 style={{ paddingLeft: "100px", paddingTop: "15px" }}>
+          <h1 style={{ paddingLeft: "20px", paddingTop: "15px" }}>
             {match.params.course}{" "}
           </h1>
           <div className="main-cards">
-            <div className="card" style={{ color: "white" }}>
+            <div className="card" style={{ color: "#000" }}>
               <h2>Average Attendance Record</h2>
 
               <div className={`c100 p${percent} big`}>

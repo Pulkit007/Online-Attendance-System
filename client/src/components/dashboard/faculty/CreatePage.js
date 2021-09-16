@@ -3,16 +3,42 @@ import PropTypes from "prop-types";
 import Sidebar from "./Sidebar";
 import CreateCourse from "./CreateCourse";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../../../actions/auth";
 
-const CreatePage = ({ auth: { user } }) => {
+const CreatePage = ({ auth: { user }, logout }) => {
   return (
     <div className="grid-container">
-      <div className="menu-icon">
-        <i className="fas fa-bars header__menu"></i>
-      </div>
-
       <header className="header">
         <div className="header__logo">Attendance DashBoard</div>
+        <div className="responsive-sidebar">
+          <div className="inner-responsive-sidebar">
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/courses"
+            >
+              <span className="">Dashboard</span>
+            </Link>
+
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/create"
+            >
+              <span className="">Create Course</span>
+            </Link>
+
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/archives"
+            >
+              <span>Archived courses</span>
+            </Link>
+
+            <Link to="/login" style={{ color: "white", fontWeight: "500px" }}>
+              <span onClick={logout}>Logout</span>
+            </Link>
+          </div>
+        </div>
       </header>
 
       <Sidebar user={user} />
@@ -21,10 +47,12 @@ const CreatePage = ({ auth: { user } }) => {
   );
 };
 
-CreatePage.propTypes = {};
+CreatePage.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, null)(CreatePage);
+export default connect(mapStateToProps, { logout })(CreatePage);

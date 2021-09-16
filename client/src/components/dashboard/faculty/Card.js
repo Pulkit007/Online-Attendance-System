@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { archive, unarchive } from "../../../actions/faculty";
+import { useHistory } from "react-router-dom";
 
 export const Card = ({
-  auth,
   archive,
   unarchive,
-  course: { faculty, course, archived, year, dept },
+  course: { course, archived, year, dept },
 }) => {
   console.log(course);
 
@@ -24,22 +24,26 @@ export const Card = ({
     unarchive(course, year);
   };
 
+  const history = useHistory();
+
   return (
     <div className="overviewcard">
       <div className="inner_card">
         {archived == 1 ? (
           <div>
-            <h2 style={{ color: "white", textAlign: "center" }}>{course}</h2>
+            <h2 style={{ color: "black", textAlign: "center" }}>{course}</h2>
             <div className="overviewcard__icon">
-              <h4 style={{ color: "white" }}>
-                Batch: {dept}
-                {year}
+              <h4 style={{ color: "black" }}>
+                Batch: {dept} - {year}
               </h4>
             </div>
             <button
               type="submit"
               style={{ alignContent: "right" }}
-              onClick={(e) => Unarchive(e)}
+              onClick={(e) => {
+                Unarchive(e);
+                history.push("/faculty/courses");
+              }}
             >
               {" "}
               Unarchive
@@ -48,18 +52,20 @@ export const Card = ({
         ) : (
           <div>
             <Link to={`/faculty/courses/${course}`}>
-              <h2 style={{ color: "white", textAlign: "center" }}>{course}</h2>
+              <h2 style={{ color: "black", textAlign: "center" }}>{course}</h2>
             </Link>
             <div className="overviewcard__icon">
-              <h4 style={{ color: "white" }}>
-                Batch: {dept}
-                {year}
+              <h4 style={{ color: "black" }}>
+                Batch: {dept} - {year}
               </h4>
             </div>
             <button
               type="submit"
               style={{ alignContent: "right" }}
-              onClick={(e) => Archive(e)}
+              onClick={(e) => {
+                Archive(e);
+                history.push("/faculty/archives");
+              }}
             >
               {" "}
               Archive
@@ -72,7 +78,6 @@ export const Card = ({
 };
 
 Card.propTypes = {
-  faculty: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   showActions: PropTypes.bool,
   archive: PropTypes.func.isRequired,

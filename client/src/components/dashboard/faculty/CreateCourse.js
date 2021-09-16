@@ -1,16 +1,23 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPost } from "../../../actions/faculty";
+import { useHistory } from "react-router-dom";
+import { loadFaculty } from "../../../actions/auth";
+import Spinner from "../../layout/Spinner";
 
-const CreateCourse = ({ auth: { user }, addPost }) => {
+const CreateCourse = ({ auth: { user }, addPost, loadFaculty }) => {
+  useEffect(() => {
+    loadFaculty();
+  }, []);
+
   const [formData, setFormData] = useState({
     course: "",
     year: "",
   });
 
   const { course, year } = formData;
+  const history = useHistory();
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,13 +26,17 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
     e.preventDefault();
     console.log(formData);
     addPost({ course, year });
+    history.push("/faculty/courses");
   };
 
-  return (
+  return !user ? (
+    <Spinner />
+  ) : (
     <div>
-      <div class="modal-dialog"></div>
+      <div className="modal-dialog"></div>
       <div className="modal-body">
         <form
+          className="create-form"
           onSubmit={(e) => {
             onSubmit(e);
           }}
@@ -50,7 +61,7 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
             value={year}
             onChange={(e) => onChange(e)}
           />
-          <div className="modal-footer">
+          <div className="">
             <input
               className="btn btn-info "
               type="submit"
@@ -66,10 +77,12 @@ const CreateCourse = ({ auth: { user }, addPost }) => {
 
 CreateCourse.propTypes = {
   addPost: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  loadFaculty: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addPost })(CreateCourse);
+export default connect(mapStateToProps, { addPost, loadFaculty })(CreateCourse);

@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+
 .body__1 {
   margin: 0;
   padding: 0;
   color: #fff;
-  font-family: "Open Sans", Helvetica, sans-serif;
+  font-family: Roboto, "Open Sans", Helvetica, sans-serif;
   box-sizing: border-box;
 }
 
@@ -21,6 +23,11 @@ h5,
 h6 {
   font-weight: 700;
 }
+
+/* h2 {
+  text-decoration: none;
+  cursor: pointer;
+} */
 
 /* Assign grid instructions to our parent grid container, mobile-first (hide the sidenav) */
 
@@ -61,11 +68,43 @@ h6 {
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  background-color: #000000;
+  background-color: #394263;
+  color: #ffffff;
 }
 
 .header__search {
   margin-left: 42px;
+}
+
+.header .responsive-sidebar {
+  display: none;
+}
+
+.create-form {
+  width: 50%;
+  margin: auto;
+  margin-top: 40px;
+  padding: 20px 20px;
+  background-color: #307bbb;
+  border-radius: 15px;
+  color: #fff;
+  -webkit-box-shadow: 2px 3px 8px rgb(95, 76, 76);
+  -moz-box-shadow: 2px 3px 8px rgb(95, 76, 76);
+  box-shadow: 2px 3px 8px rgb(95, 76, 76);
+  align-items: center;
+}
+
+.create-form input {
+  width: 90%;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.create-form .btn {
+  width: 120px;
+  margin-top: 20px;
+  background-color: #0dcaf0;
 }
 
 .sidenav {
@@ -122,17 +161,17 @@ h6 {
 
 .main {
   grid-area: main;
-  background-color: #8fd4d9;
+  background-color: #f0f0f3;
 }
 
 .main-header {
   display: flex;
   justify-content: space-between;
-  margin: 20px;
   padding: 20px;
   height: 150px;
-  background-color: #e3e4e6;
-  color: slategray;
+  background-color: #d5daeb;
+  color: #000;
+  margin-bottom: 20px;
 }
 
 .main-header__list {
@@ -144,6 +183,7 @@ h6 {
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  margin-left: 10px;
 }
 
 .overviewcard {
@@ -153,16 +193,39 @@ h6 {
   padding: 20px;
   height: 200px;
   min-width: 280px;
-  background-color: #d3d3;
+  background: #eaedf1;
+  box-shadow: -20px -20px 30px #ffffff, 10px 10px 30px rgba(136, 136, 155, 0.4);
+  border-radius: 16px;
 }
 
 .inner_card {
   margin: auto;
 }
 
+.inner_card button {
+  margin-top: 5px;
+  border-radius: 8px;
+}
+
+.overviewcard a {
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.overviewcard a:hover {
+  text-decoration: underline;
+  text-decoration-color: black;
+  text-decoration-thickness: 3px;
+}
+
 .card_container {
   z-index: 0;
   margin-bottom: 20px;
+  border: 2px soild rgb(100, 93, 93);
+  border-radius: 12px;
+  margin: 15px 15px;
+  padding-left: 0;
+  margin-left: 10px;
 }
 
 .main-cards {
@@ -176,15 +239,11 @@ h6 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: #82bef6;
+  background-color: #d5daeb;
   margin-bottom: 20px;
   -webkit-column-break-inside: avoid;
   padding: 24px;
   box-sizing: border-box;
-}
-
-.card:hover {
-  transform: scale(1.05);
 }
 
 /* Force varying heights to simulate dynamic content */
@@ -206,8 +265,9 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0px 0 10px rgba(73, 68, 68, 0.8);
   padding: 0 16px;
-  background-color: #648ca6;
+  background-color: #394263;
   margin-top: 0;
 }
 
@@ -232,6 +292,21 @@ h6 {
 }
 
 /* Non-mobile styles, 750px breakpoint */
+
+@media screen and (max-width: 46.875em) {
+  .header {
+    display: flex;
+  }
+  .header .responsive-sidebar {
+    width: 100%;
+    display: block;
+  }
+  .inner-responsive-sidebar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
 
 @media only screen and (min-width: 46.875em) {
   /* Show the sidenav */

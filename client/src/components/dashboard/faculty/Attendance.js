@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Spinner from "../../layout/Spinner";
 import { getStudents } from "../../../actions/faculty";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Table from "./Table";
 import Sidebar from "./Sidebar";

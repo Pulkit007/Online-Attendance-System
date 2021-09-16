@@ -4,10 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../../actions/auth";
 
-export const Sidebar = ({
-  auth: { isAuthenticated, loading, user },
-  logout,
-}) => {
+export const Sidebar = ({ auth: { user }, logout }) => {
   return (
     <aside className="sidenav">
       <div className="sidenav__close-icon">
@@ -22,35 +19,38 @@ export const Sidebar = ({
           </b>
         </li>
 
-        <li className="sidenav__list-item">
-          <Link
-            style={{ color: "white", fontWeight: "500px" }}
-            to="/faculty/courses"
-          >
+        <Link
+          style={{ color: "white", fontWeight: "500px" }}
+          to="/faculty/courses"
+        >
+          <li className="sidenav__list-item">
             <b>Dashboard</b>
-          </Link>
-        </li>
-        <li className="sidenav__list-item">
-          <Link
-            style={{ color: "white", fontWeight: "500px" }}
-            to="/faculty/create"
-          >
+          </li>
+        </Link>
+
+        <Link
+          style={{ color: "white", fontWeight: "500px" }}
+          to="/faculty/create"
+        >
+          <li className="sidenav__list-item">
             <b>Create Course</b>
-          </Link>
-        </li>
-        <li className="sidenav__list-item">
-          <Link
-            style={{ color: "white", fontWeight: "500px" }}
-            to="/faculty/archives"
-          >
-            <b>Archived courses</b>
-          </Link>
-        </li>
-        <li className="sidenav__list-item" onClick={logout}>
-          <Link to="/login" style={{ color: "white", fontWeight: "500px" }}>
-            <b>Logout</b>
-          </Link>
-        </li>
+          </li>
+        </Link>
+
+        <Link
+          style={{ color: "white", fontWeight: "500px" }}
+          to="/faculty/archives"
+        >
+          <li className="sidenav__list-item">
+            <b>Archived courses</b>{" "}
+          </li>
+        </Link>
+
+        <Link to="/login" style={{ color: "white", fontWeight: "500px" }}>
+          <li className="sidenav__list-item" onClick={logout}>
+            <b>Logout</b>{" "}
+          </li>
+        </Link>
       </ul>
     </aside>
   );

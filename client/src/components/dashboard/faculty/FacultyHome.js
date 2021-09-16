@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -7,14 +7,19 @@ import Sidebar from "./Sidebar";
 import { getCourses } from "../../../actions/faculty";
 import "./style.css";
 import Card from "./Card";
+import { loadFaculty } from "../../../actions/auth";
+import { logout } from "../../../actions/auth";
 
 const FacultyHome = ({
   getCourses,
-  faculty: { loading, courses },
+  logout,
+  loadFaculty,
+  faculty: { courses },
   auth: { user },
 }) => {
   useEffect(() => {
     getCourses();
+    loadFaculty();
   }, [getCourses]);
 
   let ongoing = courses.filter((course) => {
@@ -25,12 +30,36 @@ const FacultyHome = ({
     <Spinner />
   ) : (
     <div className="grid-container">
-      <div className="menu-icon">
-        <i className="fas fa-bars header__menu"></i>
-      </div>
-
       <header className="header">
         <div className="header__logo">Attendance DashBoard</div>
+        <div className="responsive-sidebar">
+          <div className="inner-responsive-sidebar">
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/courses"
+            >
+              <span className="">Dashboard</span>
+            </Link>
+
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/create"
+            >
+              <span className="">Create Course</span>
+            </Link>
+
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/archives"
+            >
+              <span>Archived courses</span>
+            </Link>
+
+            <Link to="/login" style={{ color: "white", fontWeight: "500px" }}>
+              <span onClick={logout}>Logout</span>
+            </Link>
+          </div>
+        </div>
       </header>
 
       <Sidebar user={user} />
@@ -69,8 +98,10 @@ const FacultyHome = ({
 
 FacultyHome.propTypes = {
   getCourses: PropTypes.func.isRequired,
+  loadFaculty: PropTypes.func.isRequired,
   faculty: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  logout: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -78,4 +109,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCourses })(FacultyHome);
+export default connect(mapStateToProps, { getCourses, loadFaculty, logout })(
+  FacultyHome
+);

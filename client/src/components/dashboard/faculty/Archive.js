@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Spinner from "../../layout/Spinner";
@@ -8,14 +8,17 @@ import { logout } from "../../../actions/auth";
 import Card from "./Card";
 import Sidebar from "./Sidebar";
 import "./style.css";
+import { loadFaculty } from "../../../actions/auth";
 
 const Archive = ({
   getCourses,
   logout,
+  loadFaculty,
   faculty: { loading, courses },
   auth: { user },
 }) => {
   useEffect(() => {
+    loadFaculty();
     getCourses();
   }, [getCourses]);
 
@@ -27,12 +30,36 @@ const Archive = ({
     <Spinner />
   ) : (
     <div className="grid-container">
-      <div className="menu-icon">
-        <i className="fas fa-bars header__menu"></i>
-      </div>
-
       <header className="header">
         <div className="header__logo">Attendance DashBoard</div>
+        <div className="responsive-sidebar">
+          <div className="inner-responsive-sidebar">
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/courses"
+            >
+              <span className="">Dashboard</span>
+            </Link>
+
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/create"
+            >
+              <span className="">Create Course</span>
+            </Link>
+
+            <Link
+              style={{ color: "white", fontWeight: "500px" }}
+              to="/faculty/archives"
+            >
+              <span>Archived courses</span>
+            </Link>
+
+            <Link to="/login" style={{ color: "white", fontWeight: "500px" }}>
+              <span onClick={logout}>Logout</span>
+            </Link>
+          </div>
+        </div>
       </header>
 
       <Sidebar user={user} />
@@ -74,6 +101,7 @@ Archive.propTypes = {
   faculty: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  loadFaculty: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -81,4 +109,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getCourses })(Archive);
+export default connect(mapStateToProps, { getCourses, logout, loadFaculty })(
+  Archive
+);

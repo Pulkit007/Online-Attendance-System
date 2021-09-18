@@ -1,8 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
 
 body {
   overflow-x: hidden;
-  font-family: "Montserrat", sans-serif;
+  font-family: Roboto, "Montserrat", sans-serif;
   color: #505962;
 }
 

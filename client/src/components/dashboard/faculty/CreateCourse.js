@@ -61,7 +61,6 @@ const CreateCourse = ({
           <label for="assgn-text">
             <h1>Batch Year</h1>
           </label>
-          v
           <input
             type="text"
             name="year"

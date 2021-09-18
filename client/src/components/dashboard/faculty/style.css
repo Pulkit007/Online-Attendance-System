@@ -35,7 +35,7 @@ h6 {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 50px 1fr 50px;
-  grid-template-areas: "header" "main" "footer";
+  grid-template-areas: "header""main""footer";
   height: 100vh;
   overflow-x: hidden;
   /* Sidenav is out of view; we slide it back in */
@@ -139,7 +139,7 @@ h6 {
 
 .sidenav__list {
   padding: 0;
-  margin-top: 85px;
+  margin-top: 49px;
   list-style-type: none;
 }
 
@@ -283,9 +283,11 @@ h6 {
     width: 80%;
     margin: auto;
   }
+
   .card_container {
     padding-left: 0;
   }
+
   .overviewcard {
     width: 100%;
   }
@@ -297,10 +299,12 @@ h6 {
   .header {
     display: flex;
   }
+
   .header .responsive-sidebar {
     width: 100%;
     display: block;
   }
+
   .inner-responsive-sidebar {
     display: flex;
     flex-direction: row;
@@ -309,10 +313,11 @@ h6 {
 }
 
 @media only screen and (min-width: 46.875em) {
+
   /* Show the sidenav */
   .grid-container {
     grid-template-columns: 240px 1fr;
-    grid-template-areas: "sidenav header" "sidenav main" "sidenav footer";
+    grid-template-areas: "sidenav header""sidenav main""sidenav footer";
   }
 
   .header__search {
@@ -332,6 +337,7 @@ h6 {
 /* Medium screens breakpoint (1050px) */
 
 @media only screen and (min-width: 65.625em) {
+
   /* Break out main cards into two columns */
   .main-cards {
     column-count: 2;
@@ -612,7 +618,7 @@ h6 {
   font-size: 80px;
 }
 
-.c100 > span {
+.c100>span {
   position: absolute;
   width: 100%;
   z-index: 1;
@@ -1478,7 +1484,7 @@ h6 {
   cursor: default;
 }
 
-.c100:hover > span {
+.c100:hover>span {
   width: 3.33em;
   line-height: 3.33em;
   font-size: 0.3em;
@@ -1501,7 +1507,7 @@ h6 {
   border-color: #c6ff00 !important;
 }
 
-.c100.dark > span {
+.c100.dark>span {
   color: #777777;
 }
 
@@ -1509,7 +1515,7 @@ h6 {
   background-color: #666666;
 }
 
-.c100.dark:hover > span {
+.c100.dark:hover>span {
   color: #c6ff00;
 }
 
@@ -1518,7 +1524,7 @@ h6 {
   border-color: #4db53c !important;
 }
 
-.c100.green:hover > span {
+.c100.green:hover>span {
   color: #4db53c;
 }
 
@@ -1527,7 +1533,7 @@ h6 {
   border-color: #5fd400 !important;
 }
 
-.c100.green.dark:hover > span {
+.c100.green.dark:hover>span {
   color: #5fd400;
 }
 
@@ -1536,7 +1542,7 @@ h6 {
   border-color: #dd9d22 !important;
 }
 
-.c100.orange:hover > span {
+.c100.orange:hover>span {
   color: #dd9d22;
 }
 
@@ -1545,6 +1551,6 @@ h6 {
   border-color: #e08833 !important;
 }
 
-.c100.orange.dark:hover > span {
+.c100.orange.dark:hover>span {
   color: #e08833;
 }
